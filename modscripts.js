@@ -6,7 +6,12 @@ switch (window.location.host) {
 			const rambleEndingText = "appropriate for a given project. ";
 			const highlightStartPosition = qualifications.innerHTML.indexOf(rambleEndingText) + rambleEndingText.length;
 			const highlightEndPosition = qualifications.innerHTML.indexOf("<br>", highlightStartPosition);
-			highlightTextInDOM(qualifications, highlightStartPosition, highlightEndPosition);
+			if(highlightStartPosition > 0 + rambleEndingText.length && highlightEndPosition > 0 + rambleEndingText.length)
+			{
+				highlightTextInDOM(qualifications, highlightStartPosition, highlightEndPosition);
+			} else {
+				console.log("rambleEndingText not found. rambleEndingText=" + rambleEndingText);
+			}
 		} else {
 			console.warn("Not a position-based page or DOM changed!!!");
 		}
