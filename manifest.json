@@ -1,7 +1,7 @@
 {
 	"name": "Make Chrome Better",
 	"description": "My personal extension for Chrome to add shortcuts, etc. that I wanted",
-	"version": "0.2",
+	"version": "0.3",
 	"manifest_version": 3,
 	"permissions": ["storage", 
 		"contextMenus", 
@@ -17,9 +17,15 @@
 	},
 	"content_scripts":[
 		{
-			"matches":["*://*.usajobs.gov/*"],
+			"matches":["*://*/*", "*://*.usajobs.gov/*", "*://*.linkedin.com/jobs/*"],
 			"css": ["modstyle.css"],
 			"js": ["modscripts.js"]
 		}
-	]
+	],
+	"action": {
+		"default_popup": "actionmenu.html",
+		"default_icon": {
+			"16": "/images/icon16.png"
+		}
+	}
 }

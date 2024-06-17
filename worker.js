@@ -17,6 +17,13 @@ function buildContextMenu(info) {
 		id: "glassdoorsearch"
 		}
 	);
+		chrome.contextMenus.create({
+		documentUrlPatterns: ["*://*/*"],
+		contexts: ["editable"],
+		title: "Fill LinkedIn URL",
+		id: "linkedinUrl"
+		}
+	);
 
 }
 
@@ -28,7 +35,14 @@ function handleConextClick(item, tab){
 		case 'glassdoorsearch':
 			searchCompanyGlassdoor(item, tab);
 			break;
+		case 'linkedinUrl':
+			setValueFromStorage(tab, item, "linkedInUrl");
+			break;
 	}
+}
+
+function setValueFromStorage(tab, item, valueKey){
+	chrome.tabs.sendMessage(tab.id, {funct: "setClickedElementValue", valueKey: valueKey}, {frameId: item.frameId});
 }
 
 function openCccTab(tab){
