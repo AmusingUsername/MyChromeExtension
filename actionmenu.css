@@ -26,3 +26,20 @@ input{
 	font-size: x-large;
 	text-indent: 10px;
 }
+
+textarea{
+		width: 404px;
+	background-color: #772330;
+	color: #face02;
+	border-color: #face02;	
+	border-radius: 12px;
+	border-bottom-right-radius: 30px;
+	border-top-left-radius: 30px;
+	border-width: thick;
+	border-style: solid; 
+	font-family: san-serif;
+}
+
+div.prompt{
+	margin: 8px
+}

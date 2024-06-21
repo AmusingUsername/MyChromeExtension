@@ -20,8 +20,32 @@ function buildContextMenu(info) {
 		chrome.contextMenus.create({
 		documentUrlPatterns: ["*://*/*"],
 		contexts: ["editable"],
-		title: "Fill LinkedIn URL",
-		id: "linkedinUrl"
+		title: "Fill in details",
+		id: "fillDetails"
+		}
+	);	
+		chrome.contextMenus.create({
+		documentUrlPatterns: ["*://*/*"],
+		contexts: ["editable"],
+		title: "LinkedIn URL",
+		parentId: "fillDetails",
+		id: "linkedInUrl"
+		}
+	);
+	chrome.contextMenus.create({
+		documentUrlPatterns: ["*://*.myworkdayjobs.com/*"],
+		contexts: ["editable"],
+		title: "PAL Summary",
+		parentId: "fillDetails",
+		id: "PALDetails"
+		}
+	);
+	chrome.contextMenus.create({
+		documentUrlPatterns: ["*://*.myworkdayjobs.com/*"],
+		contexts: ["editable"],
+		title: "TSE Summary",
+		parentId: "fillDetails",
+		id: "TSEDetails"
 		}
 	);
 
@@ -35,8 +59,10 @@ function handleConextClick(item, tab){
 		case 'glassdoorsearch':
 			searchCompanyGlassdoor(item, tab);
 			break;
-		case 'linkedinUrl':
-			setValueFromStorage(tab, item, "linkedInUrl");
+		case 'linkedInUrl':
+		case 'PALDetails':
+		case 'TSEDetails':
+			setValueFromStorage(tab, item, item.menuItemId);
 			break;
 	}
 }
