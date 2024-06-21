@@ -44,6 +44,7 @@ function getFieldDataAndListen(fieldId){
 	if(DOMelement){
 		//retrieve the stored value from chrome local storage
 		get(fieldId);
+		//add a listener to the change event so we can save data
 		DOMelement.addEventListener('change', set, false);
 	} else {
 		console.warn("fieldId does not existin action menu: " + fieldId);
@@ -68,6 +69,7 @@ class FieldDescriptor {
 		newInput.id = this.fieldId;
 		let newLabel = document.createElement("label");
 		newLabel.innerHTML = this.fieldLabel;
+		newLabel.setAttribute("for",this.fieldId);
 		let newDiv = document.createElement("div");
 		newDiv.id = "prompt_" + this.fieldId;
 		newDiv.className = "prompt";

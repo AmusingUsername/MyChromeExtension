@@ -3,9 +3,9 @@ chrome.contextMenus.onClicked.addListener((item, tab) =>
 	{handleConextClick(item, tab)});
 
 function buildContextMenu(info) {
-//Amazon
+
 	chrome.contextMenus.create({
-		documentUrlPatterns: ["*://*.amazon.com/*dp/*"],
+		documentUrlPatterns: ["*://*.amazon.com/*dp/*", "*://*.amazon.com/*gp/*"],
 		title: "Check CamelCamelCamel price history",
 		id: "camelcamelcamel"
 		}
@@ -17,6 +17,7 @@ function buildContextMenu(info) {
 		id: "glassdoorsearch"
 		}
 	);
+//Fill in details parent and submenu items
 		chrome.contextMenus.create({
 		documentUrlPatterns: ["*://*/*"],
 		contexts: ["editable"],
@@ -48,6 +49,7 @@ function buildContextMenu(info) {
 		id: "TSEDetails"
 		}
 	);
+//End of Fill in details parent and submenu items
 
 }
 
@@ -73,8 +75,13 @@ function setValueFromStorage(tab, item, valueKey){
 
 function openCccTab(tab){
 	if(tab && tab.url){
-		let dpIndex = tab.url.indexOf("/dp/");
-		let dpId = tab.url.substring(dpIndex + 4, dpIndex + 14);
+		let dp = "/dp/";//an identifier in URL before product code on MOST products
+		let dpIndex = tab.url.indexOf(dp);
+		if(dpIndex < 0){
+			dp = "/gp/product/";//an identifier in URL before at least some products!?
+			dpIndex = tab.url.indexOf(dp);
+		}
+		let dpId = tab.url.substring(dpIndex + dp.length, dpIndex + dp.length + 10);
 		let ccc	= "https://camelcamelcamel.com/product/" + dpId;			
 		chrome.tabs.create({ url: ccc, index: tab.index + 1});
 	}
