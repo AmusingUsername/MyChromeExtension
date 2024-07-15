@@ -41,6 +41,9 @@ switch (window.location.host) {
 			}
 		}
 		break;
+	case "www.cnn.com":
+		removeNewsHeader();
+		break;
 	default:
 		console.log("unexpected domain = " + window.location.host);
 }
@@ -71,4 +74,20 @@ function highlightTextInDOM(reference, highlightStartPos, highlightEndPos){
 					+ tagHighlightEnd
 					+ reference.innerHTML.slice(highlightEndPos); 
 	reference.innerHTML = newHTML;
+}
+
+function removeNewsHeader(className = "ad-slot-header__wrapper"){
+	removeElementByClassName(className);
+}
+
+function removeElementById(id){
+	removeElement(document.getElementById(id));
+}
+
+function removeElementByClassName(className){
+	removeElement(document.getElementsByClassName(className)[0]);
+}
+
+function removeElement(reference){
+	reference.parentElement.removeChild(reference);
 }

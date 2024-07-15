@@ -49,6 +49,14 @@ function buildContextMenu(info) {
 		id: "TSEDetails"
 		}
 	);
+	chrome.contextMenus.create({
+		documentUrlPatterns: ["*://*.myworkdayjobs.com/*"],
+		contexts: ["editable"],
+		title: "VMC Summary",
+		parentId: "fillDetails",
+		id: "VMCDetails"
+		}
+	);
 //End of Fill in details parent and submenu items
 
 }
@@ -64,6 +72,7 @@ function handleConextClick(item, tab){
 		case 'linkedInUrl':
 		case 'PALDetails':
 		case 'TSEDetails':
+		case 'VMCDetails':
 			setValueFromStorage(tab, item, item.menuItemId);
 			break;
 	}

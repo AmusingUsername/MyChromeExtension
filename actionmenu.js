@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	var fieldIds = ["linkedInUrl","PALDetails","TSEDetails"];
 	var fieldDescs = [ new FieldDescriptor("linkedInUrl","LinkedIn Profile URL:", false),
 						new FieldDescriptor("PALDetails", "PAL Summary:", true),
-						new FieldDescriptor("TSEDetails", "Senior TSE Details:", true)];
+						new FieldDescriptor("TSEDetails", "Senior TSE Summary:", true),
+						new FieldDescriptor("VMCDetails", "VMC Summary:", true)];
 	buildForm(fieldDescs);
 	fieldDescs.forEach((field) => getFieldDataAndListen(field.fieldId));
 }, false)
