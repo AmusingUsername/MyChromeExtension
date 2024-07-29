@@ -17,7 +17,7 @@
 	},
 	"content_scripts":[
 		{
-			"matches":["*://www.cnn.com/*", "*://*.usajobs.gov/*", "*://*.linkedin.com/jobs/*"],
+			"matches":["*://www.cnn.com/*", "*://*.usajobs.gov/*", "*://*.linkedin.com/jobs/*", "*://*/*"],
 			"css": ["modstyle.css"],
 			"js": ["modscripts.js"]
 		}
