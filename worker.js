@@ -18,14 +18,14 @@ function buildContextMenu(info) {
 		}
 	);
 //Fill in details parent and submenu items
-		chrome.contextMenus.create({
+	chrome.contextMenus.create({
 		documentUrlPatterns: ["*://*/*"],
 		contexts: ["editable"],
 		title: "Fill in details",
 		id: "fillDetails"
 		}
 	);	
-		chrome.contextMenus.create({
+	chrome.contextMenus.create({
 		documentUrlPatterns: ["*://*/*"],
 		contexts: ["editable"],
 		title: "LinkedIn URL",
@@ -57,6 +57,11 @@ function buildContextMenu(info) {
 		id: "VMCDetails"
 		}
 	);
+	chrome.contextMenus.create({
+		documentUrlPatterns: ["*://*.cnn.com/*"],
+		title: "Hide Paywall",
+		id: "hidePayWall"
+	})
 //End of Fill in details parent and submenu items
 
 }
@@ -69,6 +74,9 @@ function handleConextClick(item, tab){
 		case 'glassdoorsearch':
 			searchCompanyGlassdoor(item, tab);
 			break;
+		case 'hidePayWall':
+			hidePayWall(tab, item);
+			break;
 		case 'linkedInUrl':
 		case 'PALDetails':
 		case 'TSEDetails':
@@ -80,6 +88,10 @@ function handleConextClick(item, tab){
 
 function setValueFromStorage(tab, item, valueKey){
 	chrome.tabs.sendMessage(tab.id, {funct: "setClickedElementValue", valueKey: valueKey}, {frameId: item.frameId});
+}
+
+function hidePayWall(tab, item) {
+	chrome.tabs.sendMessage(tab.id, {funct: "hidePayWall", valueKey: "" }, { frameId: item.frameId});
 }
 
 function openCccTab(tab){

@@ -4,15 +4,19 @@ document.addEventListener("contextmenu", function(event){
     clickedElementId = event.target.id;
 }, true);
 
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    if(message && message.funct == "setClickedElementValue" && message.valueKey) {
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+	if (message && message.funct == "setClickedElementValue" && message.valueKey) {
 		chrome.storage.local.get(message.valueKey).then((result) => {
-			if(result && result[message.valueKey] && clickedElementId){
+			if (result && result[message.valueKey] && clickedElementId) {
 				//set the value according to field clicked in item
 				document.getElementById(clickedElementId).value = result[message.valueKey];
 			}
 		});
-    }
+	} else if (message && message.funct == "hidePayWall") {
+		if (window.location.host == "www.cnn.com") {
+			removeNewsPaywall();
+		}
+	}
 });
 
 switch (window.location.host) {
@@ -43,6 +47,9 @@ switch (window.location.host) {
 		break;
 	case "www.cnn.com":
 		removeNewsHeader();
+		break;
+	case "www.nytimes.com":
+		//removeWordleHeader();
 		break;
 	default:
 		console.log("unexpected domain = " + window.location.host);
@@ -78,6 +85,14 @@ function highlightTextInDOM(reference, highlightStartPos, highlightEndPos){
 
 function removeNewsHeader(className = "ad-slot-header__wrapper"){
 	removeElementByClassName(className);
+}
+
+function removeNewsPaywall(className = "user-account-reg-wall user-account-reg-wall--sub") {
+	removeElementByClassName(className);
+}
+
+function removeWordleHeader(id = "ad-top"){
+	removeElementById(id);
 }
 
 function removeElementById(id){
