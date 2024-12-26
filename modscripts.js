@@ -47,6 +47,7 @@ switch (window.location.host) {
 		break;
 	case "www.cnn.com":
 		removeNewsHeader();
+		reenableNewsScrollbar();
 		break;
 	case "www.nytimes.com":
 		//removeWordleHeader();
@@ -91,6 +92,10 @@ function removeNewsPaywall(className = "user-account-reg-wall user-account-reg-w
 	removeElementByClassName(className);
 }
 
+function reenableNewsScrollbar(className = 'userconsent-cntry-us userconsent-state-ga userconsent-reg-global'){
+	reenableOverflow(className);
+}
+
 function removeWordleHeader(id = "ad-top"){
 	removeElementById(id);
 }
@@ -105,4 +110,12 @@ function removeElementByClassName(className){
 
 function removeElement(reference){
 	reference.parentElement.removeChild(reference);
+}
+
+function reenableOverflow(className) {
+	enableOverflowOnElement(document.getElementsByClassName(className)[0]);
+}
+
+function enableOverflowOnElement(reference, setting = 'scroll'){
+	reference.style.overflow = 'scroll';
 }
